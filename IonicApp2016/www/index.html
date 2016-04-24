@@ -21,8 +21,46 @@
      <script type="text/javascript" src="js/app.js"></script>
       
   </head>
+    
+    <style>
+        .button {
+            border: none;
+            color: white;
+            width: 180px;
+            height: 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+    
+    
   <body ng-app="ionicApp" ng-controller="todoCtrl">
+      
       <h1 style="color:yellow; background-color: black;">Todo App</h1>
+      <!--input box for user to enter the task they want to save -->
+      <div class="item item-input-inset">
+		  <label class="item-input-wrapper">
+		    <input type="text" placeholder="Enter task and click add to save" ng-model="input" size="100"> 
+		  </label>
+
+		</div>
+      <!-- ng repeat gets elements from array to be shown  -->
+      <div ng-repeat="x in list">
+		    <li class="item item-checkbox">
+			     <label class="checkbox">
+                     <!-- this is the checkbox ,  it is bound to the done setting in the items array 
+                     if toggled it calls the update function to update the task to its done status --> 
+			     
+			       <input type="checkbox" ng-model="x.done" ng-click="update()">
+			     </label>
+			     <!-- span text -->
+			     <span>{{x.todoText}} </span>
+		 	 </li>
+		</div>
+      		<button class="button button-small button-positive" ng-click="todoAdd()">Add</button>
+
 
     
   </body>

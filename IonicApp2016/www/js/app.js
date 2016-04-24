@@ -1,24 +1,32 @@
-// Ionic Starter App
+var ionicApp = angular.module('ionicApp',[]);
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+ionicApp.controller('todoCtrl', ['$scope', function($scope) {
+    //if local storage is null save the list to local storage
+	 if (localStorage.getItem("task") == null)
+	{
+        //default task will show up if the local storage is empty
+	$scope.list = [ {todoText:'Default Task', done:false} ];
+	    localStorage.setItem("task", angular.toJson($scope.list));
+	 }else
+	 {
+	     //sets up the list from local storage if not empty
+	     $scope.list = angular.fromJson(localStorage.getItem("task"));
+	 }
+    
+    // Add item 
+	    $scope.todoAdd = function() {
+	    	//check to see if the user has entered text, if not return
+	    	  if ($scope.input == null || $scope.input == ''){return;}
+	    	  
+	    	//if there is text add it to the array
+	    	  $scope.list.push({todoText:$scope.input, done:false});
+	    	//clear the textbox for user convenience
+	    	  $scope.input = "";
+	    	  
+	    	//resave the list to localstorage to make sure the user doesnt lose it
+	    	  localStorage.setItem("task", angular.toJson($scope.list));
+	    };
+	    
+    
+}]);
