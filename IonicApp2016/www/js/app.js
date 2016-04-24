@@ -27,6 +27,31 @@ ionicApp.controller('todoCtrl', ['$scope', function($scope) {
 	    	//resave the list to localstorage to make sure the user doesnt lose it
 	    	  localStorage.setItem("task", angular.toJson($scope.list));
 	    };
+    
+    //The Update function
+        //This waits 100ms to store the data in local storage
+        $scope.update = function() {
+        //update local storage 300 ms after the checkbox is toggled to make sure it is processed and there is no error
+        setTimeout(function(){
+        localStorage.setItem("task", angular.toJson($scope.list)); 
+        },300)
+
+        }
+        
+         $scope.remove = function() {
+	    	  //save previous list
+	    	    var previousList = $scope.list;
+	    	    //empty list
+	    	    $scope.list = [];
+	    	    //run through list
+	    	    angular.forEach(previousList, function(x) {
+	    	      //add any of the items not toggled/completed to todo list
+	    	        if (!x.done) $scope.list.push(x);
+	    	    });
+	    	    //update local storage
+	    	     localStorage.setItem("task", angular.toJson($scope.list));
+
+	    	};
 	    
     
 }]);
