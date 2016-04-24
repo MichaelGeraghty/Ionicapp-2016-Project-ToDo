@@ -1,5 +1,5 @@
 # Ionicapp2016
-
+For use: Type in task to be added then click add to delete items toggle the task by clicking it and click delete selected.
 
 To run web version ionic serve and for android and ios display ionic serve --lab
 
